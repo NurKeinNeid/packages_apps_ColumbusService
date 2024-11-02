@@ -15,10 +15,12 @@
     limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">Active Edge Service</string>
+    <string name="app_name">Quick Tap Service</string>
 
     <!-- Pref keys -->
+    <string name="pref_key_lottie" translatable="false">video</string>
     <string name="pref_key_enabled" translatable="false">enabled</string>
+    <string name="pref_key_footer" translatable="false">footer</string>
     <string name="pref_key_sensitivity" translatable="false">sensitivity</string>
     <string name="pref_key_action" translatable="false">action</string>
     <string name="pref_key_allow_screen_off" translatable="false">allow_screen_off</string>
@@ -28,48 +30,70 @@
     <string name="summary_placeholder" translatable="false">&#160;</string>
 
     <!-- Entry points in Settings -->
-    <string name="settings_entry_title">Active Edge</string>
+    <string name="settings_entry_title">Quick Tap</string>
     <string name="settings_entry_summary_on">On / <xliff:g id="action" example="Take screenshot">%1$s</xliff:g></string>
     <string name="settings_entry_summary_off">Off</string>
-    <string name="settings_search_keywords">Active Edge, squeeze, edge, gesture, assist, assistant</string>
+    <string name="settings_search_keywords">Quick Tap, back tap, tap, gesture, assist, assistant</string>
 
     <!-- Items in Active Edge gesture settings -->
-    <string name="setting_enabled_title">Squeeze phone to perform action</string>
-    <string name="setting_enabled_summary">To perform an action, squeeze and release the sides of your phone near the bottom</string>
+    <string name="setting_enabled_title">Use Quick Tap</string>
+    <string name="setting_footer_content">To perform an action, tap back of your phone twice near the middle</string>
     <string name="setting_sensitivity_title">Sensitivity</string>
-    <string name="setting_sensitivity_light">Light squeeze</string>
-    <string name="setting_sensitivity_firm">Firm squeeze</string>
+    <string name="setting_sensitivity_light">Light tap</string>
+    <string name="setting_sensitivity_heavy">Heavy tap</string>
     <string name="setting_screen_off_title">Allow when screen is off</string>
     <string name="setting_screen_off_summary">May increase false triggers</string>
     <string name="setting_screen_off_blocked_summary">Blocked by current action</string>
-    <string name="setting_action_title">On squeeze</string>
+    <string name="setting_action_title">On back tap twice</string>
 
     <!-- Actions -->
     <string name="action_screenshot_name">Take screenshot</string>
     <string name="action_assistant_name">Open assistant</string>
+    <string name="action_media_name">Media play/pause</string>
+    <string name="action_notifications_name">Open notification shelf</string>
     <string name="action_camera_name">Open camera</string>
     <string name="action_power_menu_name">Open power menu</string>
     <string name="action_mute_name">Mute calls and notifications</string>
     <string name="action_flashlight_name">Turn flashlight on/off</string>
     <string name="action_screen_name">Turn screen on/off</string>
 
+    <string name="action_screenshot_value">screenshot</string>
+    <string name="action_assistant_value">assistant</string>
+    <string name="action_media_value">media</string>
+    <string name="action_notifications_value">notifications</string>
+    <string name="action_overview_value">overview</string>
+    <string name="action_camera_value">camera</string>
+    <string name="action_power_menu_value">power_menu</string>
+    <string name="action_mute_value">mute</string>
+    <string name="action_flashlight_value">flashlight</string>
+    <string name="action_screen_value">screen</string>
+
     <!-- Actions meta -->
     <string-array name="action_values" translatable="false">
-        <item>screenshot</item>
-        <item>assistant</item>
-        <item>camera</item>
-        <item>power_menu</item>
-        <item>mute</item>
-        <item>flashlight</item>
-        <item>screen</item>
+        <item>@string/action_screenshot_value</item>
+        <item>@string/action_assistant_value</item>
+        <item>@string/action_media_value</item>
+        <item>@string/action_notifications_value</item>
+        <item>@string/action_overview_value</item>
+        <item>@string/action_camera_value</item>
+        <item>@string/action_power_menu_value</item>
+        <item>@string/action_mute_value</item>
+        <item>@string/action_flashlight_value</item>
+        <item>@string/action_screen_value</item>
     </string-array>
     <string-array name="action_names" translatable="false">
         <item>@string/action_screenshot_name</item>
         <item>@string/action_assistant_name</item>
+        <item>@string/action_media_name</item>
+        <item>@string/action_notifications_name</item>
+        <item>@string/action_overview_name</item>
         <item>@string/action_camera_name</item>
         <item>@string/action_power_menu_name</item>
         <item>@string/action_mute_name</item>
         <item>@string/action_flashlight_name</item>
         <item>@string/action_screen_name</item>
     </string-array>
+
+    <!-- Toast -->
+    <string name="gesture_detected">Quick Tap detected!</string>
 </resources>

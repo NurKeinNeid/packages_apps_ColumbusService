@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package org.protonaosp.columbus.proto;
+
+option java_outer_classname = "ContextHubMessages";
+option java_package = "org.protonaosp.columbus.proto";
+
+message RecognizerStart {
+    // Gesture trigger sensitivty (1.0 scale)
+    float sensitivity = 1;
+}
+
+message SensitivityUpdate {
+    // Gesture trigger sensitivty (1.0 scale)
+    float sensitivity = 1;
+}
+
+message GestureDetected {
+    repeated float featureVector = 2;
+    int32 gestureType = 1;
+}
+
+message NanoAppEvent {
+    int64 timestamp = 1;
+    int32 type = 2;
+}
+
+message NanoAppEvents {
+    repeated NanoAppEvent batchedEvents = 1;
+}
+
+message ScreenStateUpdate {
+    int32 screenState = 1;
+}
+
+enum MessageType {
+    // Dummy value to make protobuf happy
+    UNDEFINED = 0;
+    /*
+     * AP -> SLPI
+     */
+    // Enable gesture with specified sensitivity
+    RECOGNIZER_START = 100;
+    // Disable gesture
+    RECOGNIZER_STOP = 101;
+    // Set new sensitivity without restarting gesture
+    SENSITIVITY_UPDATE = 200;
+    GATE_START = 1;
+    GATE_STOP = 2;
+    HIGH_IMU_ODR_START = 3;
+    HIGH_IMU_ODR_STOP = 4;
+    ML_PREDICTION_START = 5;
+    ML_PREDICTION_STOP = 6;
+    SINGLE_TAP = 7;
+    DOUBLE_TAP = 8;
+}

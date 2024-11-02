@@ -13,33 +13,46 @@
 // limitations under the License.
 
 android_app {
-    name: "ElmyraService",
-    srcs: ["src/**/*.java", "src/**/*.kt", "src/**/*.proto"],
-    resource_dirs: ["res"],
+    name: "ColumbusService",
+    defaults: [
+        "SettingsLibDefaults",
+    ],
+    srcs: [
+        "src/**/*.java",
+        "src/**/*.kt",
+        "src/**/*.proto",
+    ],
+
     platform_apis: true,
     system_ext_specific: true,
     certificate: "platform",
     privileged: true,
-    required: ["privapp_whitelist_org.protonaosp.elmyra"],
+    required: [
+        "privapp_whitelist_org.protonaosp.columbus",
+    ],
     static_libs: [
         "kotlin-stdlib",
         "androidx.preference_preference",
+        "androidx.core_core-ktx",
+        "tensorflowlite_java",
+        "SettingsLib",
+        "SystemUISharedLib",
     ],
-    defaults: [
-        "SettingsLibDefaults",
-    ],
+    jni_libs: ["libtensorflowlite_jni"],
+    use_embedded_native_libs: true,
     optimize: {
         proguard_flags_files: ["proguard.flags"],
     },
     proto: {
         type: "nano",
     },
+    kotlincflags: ["-Xjvm-default=all"],
 }
 
 prebuilt_etc {
-    name: "privapp_whitelist_org.protonaosp.elmyra",
+    name: "privapp_whitelist_org.protonaosp.columbus",
     system_ext_specific: true,
-    sub_dir: "permissions",
-    src: "privapp_whitelist_org.protonaosp.elmyra.xml",
+    relative_install_path: "permissions",
+    src: "privapp_whitelist_org.protonaosp.columbus.xml",
     filename_from_src: true,
 }

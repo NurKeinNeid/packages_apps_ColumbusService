@@ -16,7 +16,7 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.protonaosp.elmyra">
+    package="org.protonaosp.columbus">
 
     <!-- Core -->
     <uses-permission android:name="android.permission.ACCESS_CONTEXT_HUB" />
@@ -30,22 +30,33 @@
     <uses-permission android:name="android.permission.DEVICE_POWER" />
     <uses-permission android:name="android.permission.STATUS_BAR_SERVICE" />
     <uses-permission android:name="com.android.systemui.permission.SELF" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.MANAGE_USB" />
+    <uses-permission android:name="android.permission.ACCESS_VR_MANAGER" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
+    <uses-permission android:name="android.permission.INJECT_EVENTS"/>
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.STATUS_BAR"/>
+    <uses-permission android:name="android.permission.MONITOR_INPUT"/>
 
     <!-- Sensor HAL checks for this -->
-    <permission android:name="com.google.sensor.elmyra.permission.USE_RAW_SENSOR"
-        android:protectionLevel="preinstalled|signature" />
-    <uses-permission android:name="com.google.sensor.elmyra.permission.USE_RAW_SENSOR" />
+    <permission android:name="com.google.android.columbus.permission.CONFIGURE_COLUMBUS_GESTURE"
+        android:protectionLevel="preinstalled|signature"/>
+    <uses-permission android:name="com.google.android.columbus.permission.CONFIGURE_COLUMBUS_GESTURE"/>
 
     <application
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:allowBackup="false"
         android:supportsRtl="true"
         android:persistent="true"
+        android:enableOnBackInvokedCallback="true"
         android:directBootAware="true">
 
         <!-- Core (singleton) -->
 
-        <service android:name=".ElmyraService"
+        <service android:name=".ColumbusService"
             android:singleUser="true"
             android:exported="false" />
 
@@ -61,7 +72,7 @@
 
         <service android:name=".settings.ToggleTileService"
             android:label="@string/settings_entry_title"
-            android:icon="@drawable/ic_outline_pan_tool_24"
+            android:icon="@drawable/ic_touch_double_24px"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
             android:exported="true">
             <intent-filter>
@@ -92,7 +103,7 @@
             <meta-data android:name="com.android.settings.category"
                 android:value="com.android.settings.category.ia.gestures" />
             <meta-data android:name="com.android.settings.summary_uri"
-                android:value="content://org.protonaosp.elmyra.settings.summary/entry" />
+                android:value="content://org.protonaosp.columbus.settings.summary/entry" />
             <!-- To make it appear at the top, like stock -->
             <meta-data android:name="com.android.settings.order" android:value="-100" />
             <!-- Don't show in work profiles -->
@@ -101,7 +112,7 @@
 
         <provider
             android:name=".settings.SearchProvider"
-            android:authorities="org.protonaosp.elmyra.settings.search"
+            android:authorities="org.protonaosp.columbus.settings.search"
             android:multiprocess="false"
             android:grantUriPermissions="true"
             android:permission="android.permission.READ_SEARCH_INDEXABLES"
@@ -113,7 +124,7 @@
 
         <provider
             android:name=".settings.SummaryProvider"
-            android:authorities="org.protonaosp.elmyra.settings.summary" />
+            android:authorities="org.protonaosp.columbus.settings.summary" />
 
     </application>
 

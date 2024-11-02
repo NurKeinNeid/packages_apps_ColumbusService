@@ -14,3 +14,7 @@
 -keepclassmembers class * {
     @androidx.annotation.Keep *;
 }
+
+-keep,allowoptimization class com.android.systemui.** { *; }
+-keep,allowoptimization class org.protonaosp.** { *; }
+-keep,allowoptimization class org.tensorflow.** { *; }

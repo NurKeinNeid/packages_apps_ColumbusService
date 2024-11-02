@@ -15,8 +15,30 @@
     limitations under the License.
 -->
 <resources>
-    <bool name="default_enabled" translatable="false">true</bool>
-    <integer name="default_sensitivity" translatable="false">5</integer>
+    <bool name="default_enabled" translatable="false">false</bool>
+    <integer name="default_sensitivity" translatable="false">3</integer>
     <string name="default_action" translatable="false">screenshot</string>
     <bool name="default_allow_screen_off" translatable="false">true</bool>
+
+    <!-- Set default TensorFlow Lite model for back tap detection.
+         Supprted models are quickTapBaseModel, bramble, coral, crosshatch, flame and redfin.
+         Default to quickTapBaseModel.
+    -->
+    <string name="default_model" translatable="false" />
+
+    <!-- Use APSensor, which is combination of Accelerometer sensor and Gyroscope sensor and TensorFlow Lite for detection.
+         If false, ColumbusService try to use CHRESensor that using ContextHub and fallback to APSensor
+         if "android.hardware.context_hub" system feature is not found.
+    -->
+    <bool name="default_use_apsensor" translatable="false">true</bool>
+
+    <!-- Use heuristic mode on APSensor, which only uses Accelerometer sensor and partial use of Gyroscope sensor
+         without TensorFlow Lite for detection.
+         Orignally, this is for "heuristic" but here, used for support wider range of devices.
+         default_model config is ignored as TensorFlow Lite doesn't even used.
+    -->
+    <bool name="default_apsensor_heuristic_mode" translatable="false">true</bool>
+
+    <!-- Set APSensor throttle timeout. -->
+    <integer name="default_apsensor_throttle_ms" translatable="false">500</integer>
 </resources>

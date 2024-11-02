@@ -65,23 +65,37 @@ public class SeekBarPreference extends RestrictedPreference
             Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
-        TypedArray a = context.obtainStyledAttributes(
-                attrs, com.android.internal.R.styleable.ProgressBar, defStyleAttr, defStyleRes);
+        TypedArray a =
+                context.obtainStyledAttributes(
+                        attrs,
+                        com.android.internal.R.styleable.ProgressBar,
+                        defStyleAttr,
+                        defStyleRes);
         setMax(a.getInt(com.android.internal.R.styleable.ProgressBar_max, mMax));
         setMin(a.getInt(com.android.internal.R.styleable.ProgressBar_min, mMin));
         a.recycle();
 
-        a = context.obtainStyledAttributes(attrs,
-                com.android.internal.R.styleable.SeekBarPreference, defStyleAttr, defStyleRes);
-        final int layoutResId = a.getResourceId(
-                com.android.internal.R.styleable.SeekBarPreference_layout,
-                com.android.internal.R.layout.preference_widget_seekbar);
+        a =
+                context.obtainStyledAttributes(
+                        attrs,
+                        com.android.internal.R.styleable.SeekBarPreference,
+                        defStyleAttr,
+                        defStyleRes);
+        final int layoutResId =
+                a.getResourceId(
+                        com.android.internal.R.styleable.SeekBarPreference_layout,
+                        com.android.internal.R.layout.preference_widget_seekbar);
         a.recycle();
 
-        a = context.obtainStyledAttributes(
-                attrs, com.android.internal.R.styleable.Preference, defStyleAttr, defStyleRes);
-        final boolean isSelectable = a.getBoolean(
-                org.protonaosp.elmyra.R.styleable.Preference_android_selectable, false);
+        a =
+                context.obtainStyledAttributes(
+                        attrs,
+                        com.android.internal.R.styleable.Preference,
+                        defStyleAttr,
+                        defStyleRes);
+        final boolean isSelectable =
+                a.getBoolean(
+                        org.protonaosp.columbus.R.styleable.Preference_android_selectable, false);
         setSelectable(isSelectable);
         a.recycle();
 
@@ -93,7 +107,11 @@ public class SeekBarPreference extends RestrictedPreference
     }
 
     public SeekBarPreference(Context context, AttributeSet attrs) {
-        this(context, attrs, TypedArrayUtils.getAttr(context,
+        this(
+                context,
+                attrs,
+                TypedArrayUtils.getAttr(
+                        context,
                         androidx.preference.R.attr.seekBarPreferenceStyle,
                         com.android.internal.R.attr.seekBarPreferenceStyle));
     }
@@ -109,7 +127,7 @@ public class SeekBarPreference extends RestrictedPreference
 
     @Override
     public boolean isSelectable() {
-        if(isDisabledByAdmin()) {
+        if (isDisabledByAdmin()) {
             return true;
         } else {
             return super.isSelectable();
@@ -120,8 +138,7 @@ public class SeekBarPreference extends RestrictedPreference
     public void onBindViewHolder(PreferenceViewHolder view) {
         super.onBindViewHolder(view);
         view.itemView.setOnKeyListener(this);
-        mSeekBar = (SeekBar) view.findViewById(
-                com.android.internal.R.id.seekbar);
+        mSeekBar = (SeekBar) view.findViewById(com.android.internal.R.id.seekbar);
         mSeekBar.setOnSeekBarChangeListener(this);
         mSeekBar.setMax(mMax);
         mSeekBar.setMin(mMin);
@@ -141,33 +158,39 @@ public class SeekBarPreference extends RestrictedPreference
         }
         if (mShouldBlink) {
             View v = view.itemView;
-            v.post(() -> {
-                if (v.getBackground() != null) {
-                    final int centerX = v.getWidth() / 2;
-                    final int centerY = v.getHeight() / 2;
-                    v.getBackground().setHotspot(centerX, centerY);
-                }
-                v.setPressed(true);
-                v.setPressed(false);
-                mShouldBlink = false;
-            });
+            v.post(
+                    () -> {
+                        if (v.getBackground() != null) {
+                            final int centerX = v.getWidth() / 2;
+                            final int centerY = v.getHeight() / 2;
+                            v.getBackground().setHotspot(centerX, centerY);
+                        }
+                        v.setPressed(true);
+                        v.setPressed(false);
+                        mShouldBlink = false;
+                    });
         }
-        mSeekBar.setAccessibilityDelegate(new View.AccessibilityDelegate() {
-            @Override
-            public void onInitializeAccessibilityNodeInfo(View view, AccessibilityNodeInfo info) {
-                super.onInitializeAccessibilityNodeInfo(view, info);
-                // Update the range info with the correct type
-                AccessibilityNodeInfo.RangeInfo rangeInfo = info.getRangeInfo();
-                if (rangeInfo != null) {
-                    info.setRangeInfo(AccessibilityNodeInfo.RangeInfo.obtain(
-                                    mAccessibilityRangeInfoType, rangeInfo.getMin(),
-                                    rangeInfo.getMax(), rangeInfo.getCurrent()));
-                }
-                if (mOverrideSeekBarStateDescription != null) {
-                    info.setStateDescription(mOverrideSeekBarStateDescription);
-                }
-            }
-        });
+        mSeekBar.setAccessibilityDelegate(
+                new View.AccessibilityDelegate() {
+                    @Override
+                    public void onInitializeAccessibilityNodeInfo(
+                            View view, AccessibilityNodeInfo info) {
+                        super.onInitializeAccessibilityNodeInfo(view, info);
+                        // Update the range info with the correct type
+                        AccessibilityNodeInfo.RangeInfo rangeInfo = info.getRangeInfo();
+                        if (rangeInfo != null) {
+                            info.setRangeInfo(
+                                    AccessibilityNodeInfo.RangeInfo.obtain(
+                                            mAccessibilityRangeInfoType,
+                                            rangeInfo.getMin(),
+                                            rangeInfo.getMax(),
+                                            rangeInfo.getCurrent()));
+                        }
+                        if (mOverrideSeekBarStateDescription != null) {
+                            info.setStateDescription(mOverrideSeekBarStateDescription);
+                        }
+                    }
+                });
     }
 
     @Override
@@ -177,8 +200,7 @@ public class SeekBarPreference extends RestrictedPreference
 
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-        setProgress(restoreValue ? getPersistedInt(mProgress)
-                : (Integer) defaultValue);
+        setProgress(restoreValue ? getPersistedInt(mProgress) : (Integer) defaultValue);
     }
 
     @Override
@@ -435,13 +457,13 @@ public class SeekBarPreference extends RestrictedPreference
         @SuppressWarnings("unused")
         public static final Parcelable.Creator<SavedState> CREATOR =
                 new Parcelable.Creator<SavedState>() {
-            public SavedState createFromParcel(Parcel in) {
-                return new SavedState(in);
-            }
+                    public SavedState createFromParcel(Parcel in) {
+                        return new SavedState(in);
+                    }
 
-            public SavedState[] newArray(int size) {
-                return new SavedState[size];
-            }
-        };
+                    public SavedState[] newArray(int size) {
+                        return new SavedState[size];
+                    }
+                };
     }
 }

@@ -38,8 +38,8 @@ public class DefaultIndicatorSeekBar extends SeekBar {
         super(context, attrs, defStyleAttr);
     }
 
-    public DefaultIndicatorSeekBar(Context context, AttributeSet attrs, int defStyleAttr,
-            int defStyleRes) {
+    public DefaultIndicatorSeekBar(
+            Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
@@ -63,8 +63,10 @@ public class DefaultIndicatorSeekBar extends SeekBar {
             final int range = getMax() - getMin();
             final float scale = range > 0f ? mDefaultProgress / (float) range : 0f;
             final int offset = (int) ((scale * availableWidth) + 0.5f);
-            final int indicatorPosition = isLayoutRtl() && getMirrorForRtl()
-                    ? availableWidth - offset + mPaddingRight : offset + mPaddingLeft;
+            final int indicatorPosition =
+                    isLayoutRtl() && getMirrorForRtl()
+                            ? availableWidth - offset + mPaddingRight
+                            : offset + mPaddingLeft;
 
             final int saveCount = canvas.save();
             canvas.translate(indicatorPosition, getHeight() / 2);

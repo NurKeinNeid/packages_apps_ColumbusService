@@ -3,17 +3,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <SwitchPreference
+    <com.android.settingslib.widget.IllustrationPreference
+        android:key="@string/pref_key_lottie"
+        app:dynamicColor="true"
+        app:lottie_rawRes="@raw/gesture_columbus" />
+
+    <com.android.settingslib.widget.MainSwitchPreference
         android:key="@string/pref_key_enabled"
         android:title="@string/setting_enabled_title"
-        android:summary="@string/setting_enabled_summary"
         android:defaultValue="@bool/default_enabled" />
 
     <com.android.settings.widget.LabeledSeekBarPreference
         android:key="@string/pref_key_sensitivity"
         android:title="@string/setting_sensitivity_title"
-        app:textStart="@string/setting_sensitivity_firm"
-        app:textEnd="@string/setting_sensitivity_light"
+        app:textStart="@string/setting_sensitivity_light"
+        app:textEnd="@string/setting_sensitivity_heavy"
         android:min="0"
         android:max="10"
         app:seekBarIncrement="1"
@@ -30,11 +34,16 @@
         android:defaultValue="@string/default_action"
         android:dependency="@string/pref_key_enabled" />
 
-    <SwitchPreference
+    <SwitchPreferenceCompat
         android:key="@string/pref_key_allow_screen_off"
         android:title="@string/setting_screen_off_title"
         android:summary="@string/setting_screen_off_summary"
         android:defaultValue="@bool/default_allow_screen_off"
         android:dependency="@string/pref_key_enabled" />
+
+    <com.android.settingslib.widget.FooterPreference
+        android:key="@string/pref_key_footer"
+        android:title="@string/setting_footer_content"
+        android:selectable="false" />
 
 </PreferenceScreen>

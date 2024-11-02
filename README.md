@@ -1,47 +1,54 @@
-# Active Edge Service
+# Quick Tap Service
 
-This is an open-source implementation of the Pixel Active Edge gesture, written from scratch for portability and customizability.
+This is an open-source implementation of the Pixel Quick Tap gesture, written from scratch for portability and customizability.
 
-Active Edge, codename Elmyra, is a gesture powered by side grip sensors on the Pixel 2/XL, 3/XL, 3a/XL, and 4/XL that is used to activate the Google Assistant on stock. The gesture is handled by a proprietary nanoapp running under CHRE (ContextHub Runtime Environment) on the sensor DSP.
+Quick Tap, codename Columbus, is a gesture powered by AP sensors and CHRE sensor on the Pixel 4a (5G) and later that is used to activate the Google Assistant on stock.
 
-This app is a reverse-engineered Android client that runs as a standalone service and talks to the CHRE nanoapp for gesture functionality. No decompiled code has been used.
+This app is a reverse-engineered Android client that runs as a standalone service and talks to the AP sensor and CHRE sensor for gesture functionality.
 
 ## Features
 
-- Seamless integration in Settings → System → Gestures → Active Edge with no extra changes
+- Seamless integration in Settings → System → Gestures → Quick Tap with no extra changes
 - Integration with Settings search
 - Many actions to perform on gesture trigger
   - Take screenshot
   - Open assistant
+  - Play or pause media
+  - See recent apps
   - Open camera
   - Toggle flashlight
   - Mute calls & notifications (replicates default power + volume-up "prevent ringing" gesture)
   - Toggle power menu
   - Toggle screen
-- 10 sensitivity levels (more granular than stock)
 - Setting to control whether gesture is enabled when the screen is off
 - Contextually-appropriate haptic feedback with modern effects
-  - Heavy click for squeeze
-  - Click for release
+  - Heavy click for back tap
   - Reject for unavailable action (e.g. if flashlight can't turn on because camera is in use)
 
 ## Integration
 
-Sync this repo to packages/apps/ElmyraService.
+Sync this repo to packages/apps/ColumbusService.
 
 Add the following to your device tree **only for devices with this feature**:
+
 ```make
-# Active Edge
+# Quick Tap
 PRODUCT_PACKAGES += \
-    ElmyraService
+    ColumbusService
 ```
 
 While this service is designed to be as portable and self-contained as possible, Android does not provide the necessary APIs to implement all gesture actions out-of-the-box. This means that some commits must be added to frameworks/base to expose the APIs for full functionality:
 
 - For screenshot action: [SystemUI: Allow privileged system apps to access screenshot service](https://github.com/ProtonAOSP/android_frameworks_base/commit/013c590411435569077228aacf1e246678c366ab)
 - For assistant action: [core: Expose method to start assistant through Binder](https://github.com/ProtonAOSP/android_frameworks_base/commit/2b950e103e865aa6a1fe8a917964e0069d4c4037)
+- For toggle recents action: [core: Expose method to toggle recent apps through Binder](https://github.com/TheParasiteProject/frameworks_base/commit/903aa739452e47b765434cc77a89b6e7f49f972b)
 
-Default settings can be changed by overlaying [res/values/config.xml](https://github.com/ProtonAOSP/android_packages_apps_ElmyraService/blob/rvc/res/values/config.xml).
+Default settings can be changed by overlaying [res/values/config.xml](https://github.com/ProtonAOSP/android_packages_apps_ColumbusService/blob/rvc/res/values/config.xml).
+
+## Acknowledgements
+
+- [Active Edge Service](https://github.com/ProtonAOSP/android_packages_apps_ElmyraService) by [ProtonAOSP](https://github.com/ProtonAOSP) : Code base
+- [vendor_pixel-framework](https://github.com/PixelExperience/vendor_pixel-framework) by [PixelExperience](https://github.com/PixelExperience) : APSensor support for wider devices
 
 ## License
 

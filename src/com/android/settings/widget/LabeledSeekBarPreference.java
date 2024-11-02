@@ -26,7 +26,7 @@ import android.widget.TextView;
 import androidx.core.content.res.TypedArrayUtils;
 import androidx.preference.PreferenceViewHolder;
 
-import org.protonaosp.elmyra.R;
+import org.protonaosp.columbus.R;
 
 /** A slider preference with left and right labels **/
 public class LabeledSeekBarPreference extends SeekBarPreference {
@@ -36,29 +36,36 @@ public class LabeledSeekBarPreference extends SeekBarPreference {
     private final int mTickMarkId;
     private OnPreferenceChangeListener mStopListener;
 
-    public LabeledSeekBarPreference(Context context, AttributeSet attrs, int defStyleAttr,
-            int defStyleRes) {
+    public LabeledSeekBarPreference(
+            Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 
         super(context, attrs, defStyleAttr, defStyleRes);
         setLayoutResource(R.layout.preference_labeled_slider);
 
-        final TypedArray styledAttrs = context.obtainStyledAttributes(attrs,
-                R.styleable.LabeledSeekBarPreference);
-        mTextStartId = styledAttrs.getResourceId(
-                R.styleable.LabeledSeekBarPreference_textStart,
-                R.string.summary_placeholder);
-        mTextEndId = styledAttrs.getResourceId(
-                R.styleable.LabeledSeekBarPreference_textEnd,
-                R.string.summary_placeholder);
-        mTickMarkId = styledAttrs.getResourceId(
-                R.styleable.LabeledSeekBarPreference_tickMark, /* defValue= */ 0);
+        final TypedArray styledAttrs =
+                context.obtainStyledAttributes(attrs, R.styleable.LabeledSeekBarPreference);
+        mTextStartId =
+                styledAttrs.getResourceId(
+                        R.styleable.LabeledSeekBarPreference_textStart,
+                        R.string.summary_placeholder);
+        mTextEndId =
+                styledAttrs.getResourceId(
+                        R.styleable.LabeledSeekBarPreference_textEnd, R.string.summary_placeholder);
+        mTickMarkId =
+                styledAttrs.getResourceId(
+                        R.styleable.LabeledSeekBarPreference_tickMark, /* defValue= */ 0);
         styledAttrs.recycle();
     }
 
     public LabeledSeekBarPreference(Context context, AttributeSet attrs) {
-        this(context, attrs, TypedArrayUtils.getAttr(context,
-                androidx.preference.R.attr.seekBarPreferenceStyle,
-                com.android.internal.R.attr.seekBarPreferenceStyle), 0);
+        this(
+                context,
+                attrs,
+                TypedArrayUtils.getAttr(
+                        context,
+                        androidx.preference.R.attr.seekBarPreferenceStyle,
+                        com.android.internal.R.attr.seekBarPreferenceStyle),
+                0);
     }
 
     @Override
@@ -72,8 +79,8 @@ public class LabeledSeekBarPreference extends SeekBarPreference {
 
         if (mTickMarkId != 0) {
             final Drawable tickMark = getContext().getDrawable(mTickMarkId);
-            final SeekBar seekBar = (SeekBar) holder.findViewById(
-                    com.android.internal.R.id.seekbar);
+            final SeekBar seekBar =
+                    (SeekBar) holder.findViewById(com.android.internal.R.id.seekbar);
             seekBar.setTickMark(tickMark);
         }
     }
@@ -91,4 +98,3 @@ public class LabeledSeekBarPreference extends SeekBarPreference {
         }
     }
 }
-
