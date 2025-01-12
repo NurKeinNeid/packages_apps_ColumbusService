@@ -46,6 +46,10 @@ android_app {
     proto: {
         type: "nano",
     },
+
+    aaptflags: [
+        "-0 .tflite",
+    ],
     kotlincflags: ["-Xjvm-default=all"],
 }
 
