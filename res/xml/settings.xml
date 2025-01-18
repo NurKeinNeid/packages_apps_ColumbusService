@@ -34,6 +34,15 @@
         android:defaultValue="@string/default_action"
         android:dependency="@string/pref_key_enabled" />
 
+    <Preference
+        android:key="@string/pref_key_launch_app"
+        android:title="@string/launch_app_select_title"
+        android:summary="@string/launch_app_select_summary">
+        <intent android:action="android.intent.action.MAIN"
+            android:targetPackage="org.protonaosp.columbus"
+            android:targetClass="org.protonaosp.columbus.actions.apppicker.ColumbusCustomApp" />
+    </Preference>
+
     <SwitchPreferenceCompat
         android:key="@string/pref_key_allow_screen_off"
         android:title="@string/setting_screen_off_title"

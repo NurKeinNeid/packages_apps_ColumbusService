@@ -122,6 +122,7 @@ class ColumbusService : Service(), SharedPreferences.OnSharedPreferenceChangeLis
             "mute" -> MuteAction(this)
             "flashlight" -> FlashlightAction(this)
             "screen" -> ScreenAction(this)
+            "launch" -> LaunchAction(this)
 
             else -> DummyAction(this)
         }

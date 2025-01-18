@@ -19,6 +19,7 @@ package org.protonaosp.columbus.settings
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.preference.ListPreference
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragment
 import androidx.preference.SwitchPreferenceCompat
 import com.android.settings.widget.LabeledSeekBarPreference
@@ -31,6 +32,7 @@ import org.protonaosp.columbus.getActionName
 import org.protonaosp.columbus.getAllowScreenOff
 import org.protonaosp.columbus.getDePrefs
 import org.protonaosp.columbus.getEnabled
+import org.protonaosp.columbus.getLaunchActionAppName
 import org.protonaosp.columbus.getSensitivity
 
 class SettingsFragment : PreferenceFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
@@ -79,6 +81,18 @@ class SettingsFragment : PreferenceFragment(), SharedPreferences.OnSharedPrefere
             value = action_value
             summary = prefs.getActionName(context)
         }
+
+        val launch_app: Preference? =
+            findPreference<Preference>(getString(R.string.pref_key_launch_app))
+        launch_app?.apply {
+            val appname = prefs.getLaunchActionAppName(context)
+            if (appname != getString(R.string.launch_app_default)) {
+                summary = appname
+            } else {
+                summary = getString(R.string.launch_app_select_summary)
+            }
+        }
+        launch_app?.setVisible(enabled && action_value == getString(R.string.action_launch_value))
 
         // Screen state based on action
         findPreference<SwitchPreferenceCompat>(getString(R.string.pref_key_allow_screen_off))

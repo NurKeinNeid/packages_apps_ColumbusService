@@ -20,6 +20,7 @@ This app is a reverse-engineered Android client that runs as a standalone servic
   - Mute calls & notifications (replicates default power + volume-up "prevent ringing" gesture)
   - Toggle power menu
   - Toggle screen
+  - Launch app
 - Setting to control whether gesture is enabled when the screen is off
 - Contextually-appropriate haptic feedback with modern effects
   - Heavy click for back tap

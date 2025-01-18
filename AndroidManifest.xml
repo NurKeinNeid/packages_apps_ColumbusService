@@ -110,6 +110,17 @@
             <meta-data android:name="com.android.settings.profile" android:value="primary_profile_only" />
         </activity>
 
+        <activity
+            android:name=".actions.apppicker.ColumbusCustomApp"
+            android:theme="@style/Theme.DeviceDefault.Dialog.MinWidth.DayNight"
+            android:label="@string/app_picker_dialog_title"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="org.protonaosp.columbus.actions.apppicker.ColumbusCustomApp" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <provider
             android:name=".settings.SearchProvider"
             android:authorities="org.protonaosp.columbus.settings.search"

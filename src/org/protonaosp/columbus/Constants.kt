@@ -17,4 +17,3 @@
 package org.protonaosp.columbus
 
 const val TAG = "Columbus/Service"
-const val APP_NONE = "NONE"

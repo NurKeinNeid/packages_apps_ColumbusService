@@ -59,3 +59,20 @@ fun SharedPreferences.getActionName(context: Context): String {
     val actionValues = context.resources.getStringArray(R.array.action_values)
     return actionNames[actionValues.indexOf(getAction(context))]
 }
+
+fun SharedPreferences.getLaunchActionApp(context: Context): String {
+    val app_default = context.getString(R.string.launch_app_default)
+    return getString(context.getString(R.string.pref_key_launch_app), app_default) ?: app_default
+}
+
+fun SharedPreferences.getLaunchActionAppName(context: Context): String {
+    val app_default = context.getString(R.string.launch_app_default)
+    return getString(context.getString(R.string.pref_key_launch_app_name), app_default)
+        ?: app_default
+}
+
+fun SharedPreferences.getLaunchActionAppShortcut(context: Context): String {
+    val app_default = context.getString(R.string.launch_app_default)
+    return getString(context.getString(R.string.pref_key_launch_app_shortcut), app_default)
+        ?: app_default
+}
