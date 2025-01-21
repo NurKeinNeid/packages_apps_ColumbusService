@@ -94,7 +94,13 @@ class ColumbusService : Service(), SharedPreferences.OnSharedPreferenceChangeLis
         }
         controller = ColumbusController(this, sensor, handler)
         controller.setGestureListener(columbusControllerListener)
-        gates = setOf(TelephonyActivity(this, handler), VrMode(this, handler))
+        gates =
+            setOf(
+                TelephonyActivity(this, handler),
+                VrMode(this, handler),
+                PocketDetectionGate(this, handler),
+                TableDetectionGate(this, handler),
+            )
 
         updateAction()
         updateSensitivity()
