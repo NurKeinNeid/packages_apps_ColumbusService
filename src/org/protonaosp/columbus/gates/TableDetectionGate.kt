@@ -37,7 +37,7 @@ class TableDetectionGate(context: Context, val handler: Handler) : Gate(context,
                 z /= norm
                 val inclination = Math.toDegrees(acos(z.toDouble())).roundToInt()
 
-                val isFlat = inclination < 25 || inclination > 155
+                val isFlat = inclination < 3 || inclination > 177
                 if (isFlat != this.isFlat) {
                     this.isFlat = isFlat
                     setBlocking(isFlat)
