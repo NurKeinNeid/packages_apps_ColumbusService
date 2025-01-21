@@ -50,7 +50,8 @@ Default settings can be changed by overlaying [res/values/config.xml](https://gi
 
 - [Active Edge Service](https://github.com/ProtonAOSP/android_packages_apps_ElmyraService) by [ProtonAOSP](https://github.com/ProtonAOSP) : Code base
 - [vendor_pixel-framework](https://github.com/PixelExperience/vendor_pixel-framework) by [PixelExperience](https://github.com/PixelExperience) : APSensor support for wider devices
+- [TapTap](https://github.com/KieronQuinn/TapTap) by [Kieron Quinn](https://github.com/KieronQuinn) : Port of the double tap on back of device feature from Android 12 to any Android 7.0+ device
 
 ## License
 
-All code in this repository is licensed under the Apache 2.0 License.
+All code in this repository is licensed under the GPL-3.0 License.
