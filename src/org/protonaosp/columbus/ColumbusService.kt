@@ -303,7 +303,7 @@ class ColumbusService : Service(), SharedPreferences.OnSharedPreferenceChangeLis
             VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK)
         private val sonicAutioAttr: AudioAttributes =
             AudioAttributes.Builder()
-                .setContentType(AudioSystem.STREAM_ALARM)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                 .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
                 .build()
     }
