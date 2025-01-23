@@ -157,7 +157,7 @@ class ColumbusService : Service(), SharedPreferences.OnSharedPreferenceChangeLis
                 getString(R.string.pref_key_allow_screen_off_action_forced),
                 !action.canRunWhenScreenOff(),
             )
-            .commit()
+            .apply()
     }
 
     private fun updateEnabled() {
@@ -296,15 +296,18 @@ class ColumbusService : Service(), SharedPreferences.OnSharedPreferenceChangeLis
             }
         }
 
-    companion object {
-        // Vibration effects from HapticFeedbackConstants
-        // Duplicated because we can't use performHapticFeedback in a background service
-        private val vibDoubleTap =
-            VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK)
-        private val sonicAutioAttr: AudioAttributes =
-            AudioAttributes.Builder()
-                .setContentType(AudioSystem.STREAM_ALARM)
-                .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
-                .build()
-    }
+ companion object {
+     private val vibDoubleTap: VibrationEffect =
+         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+             VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK)
+         } else {
+             VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE)
+         }
+
+     private val sonicAudioAttr: AudioAttributes =
+         AudioAttributes.Builder()
+             .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+             .setUsage(AudioAttributes.USAGE_ALARM)
+             .build()
+ }
 }
