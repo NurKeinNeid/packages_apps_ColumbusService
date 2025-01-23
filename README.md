@@ -44,7 +44,7 @@ While this service is designed to be as portable and self-contained as possible,
 - For assistant action: [core: Expose method to start assistant through Binder](https://github.com/ProtonAOSP/android_frameworks_base/commit/2b950e103e865aa6a1fe8a917964e0069d4c4037)
 - For toggle recents action: [core: Expose method to toggle recent apps through Binder](https://github.com/TheParasiteProject/frameworks_base/commit/903aa739452e47b765434cc77a89b6e7f49f972b)
 
-Default settings can be changed by overlaying [res/values/config.xml](https://github.com/ProtonAOSP/android_packages_apps_ColumbusService/blob/rvc/res/values/config.xml).
+Default settings can be changed by overlaying [res/values/config.xml](https://github.com/TheParasiteProject/packages_apps_ColumbusService/blob/main/res/values/config.xml).
 
 ## Acknowledgements
 
