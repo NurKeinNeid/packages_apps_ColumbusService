@@ -16,11 +16,12 @@
 
 package org.protonaosp.columbus.settings
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.preference.ListPreference
 import androidx.preference.Preference
-import androidx.preference.PreferenceFragment
+import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.android.settings.widget.LabeledSeekBarPreference
 import com.android.settings.widget.SeekBarPreference
@@ -35,11 +36,13 @@ import org.protonaosp.columbus.getEnabled
 import org.protonaosp.columbus.getLaunchActionAppName
 import org.protonaosp.columbus.getSensitivity
 
-class SettingsFragment : PreferenceFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
+class SettingsFragment :
+    PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
     private lateinit var prefs: SharedPreferences
+    private lateinit var mContext: Context
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        addPreferencesFromResource(R.xml.settings)
+        setPreferencesFromResource(R.xml.settings, rootKey)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +50,8 @@ class SettingsFragment : PreferenceFragment(), SharedPreferences.OnSharedPrefere
         preferenceManager.setStorageDeviceProtected()
         preferenceManager.sharedPreferencesName = PREFS_NAME
 
-        prefs = context!!.getDePrefs()
+        mContext = requireContext()
+        prefs = mContext.getDePrefs()
         prefs.registerOnSharedPreferenceChangeListener(this)
         updateUi()
     }
@@ -63,29 +67,29 @@ class SettingsFragment : PreferenceFragment(), SharedPreferences.OnSharedPrefere
 
     private fun updateUi() {
         // Enabled
-        val enabled = prefs.getEnabled(context)
+        val enabled = prefs.getEnabled(mContext)
         findPreference<MainSwitchPreference>(getString(R.string.pref_key_enabled))?.apply {
             setChecked(enabled)
         }
 
         // Sensitivity value
         findPreference<LabeledSeekBarPreference>(getString(R.string.pref_key_sensitivity))?.apply {
-            progress = prefs.getSensitivity(context)
+            progress = prefs.getSensitivity(mContext)
             setHapticFeedbackMode(SeekBarPreference.HAPTIC_FEEDBACK_MODE_ON_TICKS)
         }
 
         // Action value and summary
         val key_action = getString(R.string.pref_key_action)
-        val action_value = prefs.getAction(context)
+        val action_value = prefs.getAction(mContext)
         findPreference<ListPreference>(key_action)?.apply {
             value = action_value
-            summary = prefs.getActionName(context)
+            summary = prefs.getActionName(mContext)
         }
 
         val launch_app: Preference? =
             findPreference<Preference>(getString(R.string.pref_key_launch_app))
         launch_app?.apply {
-            val appname = prefs.getLaunchActionAppName(context)
+            val appname = prefs.getLaunchActionAppName(mContext)
             if (appname != getString(R.string.launch_app_default)) {
                 summary = appname
             } else {
@@ -110,7 +114,7 @@ class SettingsFragment : PreferenceFragment(), SharedPreferences.OnSharedPrefere
                 } else {
                     setSummary(getString(R.string.setting_screen_off_summary))
                     setPersistent(true)
-                    setChecked(prefs.getAllowScreenOff(context))
+                    setChecked(prefs.getAllowScreenOff(mContext))
                 }
             }
     }
