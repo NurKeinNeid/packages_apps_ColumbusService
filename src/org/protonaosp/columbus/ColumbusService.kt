@@ -23,7 +23,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.media.AudioAttributes
-import android.media.AudioSystem
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
@@ -232,14 +231,14 @@ class ColumbusService : Service(), SharedPreferences.OnSharedPreferenceChangeLis
         wakelock.acquire(2000L)
 
         if (isSettingsActivityOnTop) {
-            vibrator.vibrate(vibDoubleTap, sonicAutioAttr)
+            vibrator.vibrate(vibDoubleTap, sonicAudioAttr)
             Toast.makeText(this, R.string.gesture_detected, Toast.LENGTH_SHORT).show()
             return
         }
 
         if (!action.canRun()) return
 
-        vibrator.vibrate(vibDoubleTap, sonicAutioAttr)
+        vibrator.vibrate(vibDoubleTap, sonicAudioAttr)
 
         action.run()
     }
@@ -299,12 +298,17 @@ class ColumbusService : Service(), SharedPreferences.OnSharedPreferenceChangeLis
     companion object {
         // Vibration effects from HapticFeedbackConstants
         // Duplicated because we can't use performHapticFeedback in a background service
-        private val vibDoubleTap =
-            VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK)
-        private val sonicAutioAttr: AudioAttributes =
+        private val vibDoubleTap: VibrationEffect =
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK)
+            } else {
+                VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE)
+            }
+
+        private val sonicAudioAttr: AudioAttributes =
             AudioAttributes.Builder()
                 .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
+                .setUsage(AudioAttributes.USAGE_ALARM)
                 .build()
     }
 }
