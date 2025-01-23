@@ -157,7 +157,7 @@ class ColumbusService : Service(), SharedPreferences.OnSharedPreferenceChangeLis
                 getString(R.string.pref_key_allow_screen_off_action_forced),
                 !action.canRunWhenScreenOff(),
             )
-            .commit()
+            .apply()
     }
 
     private fun updateEnabled() {
