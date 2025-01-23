@@ -22,52 +22,54 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
-import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
 import org.protonaosp.columbus.ColumbusService
 import org.protonaosp.columbus.TAG
 
-class SettingsActivity : CollapsingToolbarBaseActivity() {
+class SettingsActivity : AppCompatActivity() {
     private var columbusService: ColumbusService? = null
+    private var isBound = false
 
-    private val connection =
-        object : ServiceConnection {
-            override fun onServiceConnected(className: ComponentName, service: IBinder) {
-                val binder = service as ColumbusService.Binder
-                columbusService = binder.getService()
-                columbusService?.isSettingsActivityOnTop = true
-            }
-
-            override fun onServiceDisconnected(arg0: ComponentName) {
-                columbusService?.isSettingsActivityOnTop = false
-            }
+    private val connection = object : ServiceConnection {
+        override fun onServiceConnected(className: ComponentName, service: IBinder) {
+            val binder = service as ColumbusService.Binder
+            columbusService = binder.getService()
+            columbusService?.isSettingsActivityOnTop = true
         }
+
+        override fun onServiceDisconnected(arg0: ComponentName) {
+            columbusService?.isSettingsActivityOnTop = false
+            columbusService = null
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        columbusService?.isSettingsActivityOnTop = true
-
-        fragmentManager
+        supportFragmentManager
             .beginTransaction()
             .replace(
                 com.android.settingslib.collapsingtoolbar.R.id.content_frame,
                 SettingsFragment(),
-                TAG,
+                TAG
             )
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .commit()
     }
 
     override fun onResume() {
         super.onResume()
         Intent(this, ColumbusService::class.java).also { intent ->
-            bindService(intent, connection, Context.BIND_AUTO_CREATE)
+            isBound = bindService(intent, connection, Context.BIND_AUTO_CREATE)
         }
-        columbusService?.isSettingsActivityOnTop = true
     }
 
     override fun onPause() {
         super.onPause()
-        columbusService?.isSettingsActivityOnTop = false
-        unbindService(connection)
+        if (isBound) {
+            unbindService(connection)
+            isBound = false
+        }
     }
 }
