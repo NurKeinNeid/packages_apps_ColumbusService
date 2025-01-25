@@ -43,6 +43,15 @@
             android:targetClass="org.protonaosp.columbus.actions.apppicker.ColumbusCustomApp" />
     </Preference>
 
+    <ListPreference
+        android:key="@string/pref_key_haptic_intensity"
+        android:title="@string/pref_title_haptic_intensity"
+        android:summary="%s"
+        android:entries="@array/pref_haptic_intensity_entries"
+        android:entryValues="@array/pref_haptic_intensity_values"
+        android:defaultValue="@string/default_haptic_intensity"
+        android:dependency="@string/pref_key_enabled" />
+
     <SwitchPreferenceCompat
         android:key="@string/pref_key_allow_screen_off"
         android:title="@string/setting_screen_off_title"

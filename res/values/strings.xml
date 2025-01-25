@@ -28,6 +28,7 @@
     <string name="pref_key_launch_app_shortcut" translatable="false">launch_app_shortcut</string>
     <string name="pref_key_allow_screen_off" translatable="false">allow_screen_off</string>
     <string name="pref_key_allow_screen_off_action_forced" translatable="false">allow_screen_off_action_forced</string>
+    <string name="pref_key_haptic_intensity" translatable="false">haptic_intensity</string>
 
     <!-- Other non-translatable -->
     <string name="summary_placeholder" translatable="false">&#160;</string>
@@ -112,4 +113,17 @@
 
     <!-- Toast -->
     <string name="gesture_detected">Quick Tap detected!</string>
+
+    <!-- Haptic feedback intensity -->
+    <string name="pref_title_haptic_intensity">Haptic feedback intensity</string>
+    <string-array name="pref_haptic_intensity_entries">
+        <item>Light</item>
+        <item>Medium</item>
+        <item>Strong</item>
+    </string-array>
+    <string-array name="pref_haptic_intensity_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>

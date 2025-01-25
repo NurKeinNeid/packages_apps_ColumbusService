@@ -45,6 +45,7 @@ class ColumbusService : Service(), SharedPreferences.OnSharedPreferenceChangeLis
     private lateinit var vibrator: Vibrator
     private lateinit var prefs: SharedPreferences
     private lateinit var action: Action
+    private lateinit var vibDoubleTap: VibrationEffect
     private lateinit var sensor: ColumbusSensor
     private lateinit var controller: ColumbusController
     private lateinit var handler: Handler
@@ -101,6 +102,7 @@ class ColumbusService : Service(), SharedPreferences.OnSharedPreferenceChangeLis
                 TableDetectionGate(this, handler),
             )
 
+        updateHapticIntensity()
         updateAction()
         updateSensitivity()
         updateEnabled()
@@ -222,6 +224,26 @@ class ColumbusService : Service(), SharedPreferences.OnSharedPreferenceChangeLis
         }
     }
 
+    private fun updateHapticIntensity() {
+        val value = prefs.getHapticIntensity(this)
+        vibDoubleTap =
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                when (value) {
+                    "0" -> VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK)
+                    "1" -> VibrationEffect.createPredefined(VibrationEffect.EFFECT_DOUBLE_CLICK)
+                    "2" -> VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK)
+                    else -> VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK)
+                }
+            } else {
+                when (value) {
+                    "0" -> VibrationEffect.createOneShot(25, VibrationEffect.DEFAULT_AMPLITUDE)
+                    "1" -> VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE)
+                    "2" -> VibrationEffect.createOneShot(75, VibrationEffect.DEFAULT_AMPLITUDE)
+                    else -> VibrationEffect.createOneShot(75, VibrationEffect.DEFAULT_AMPLITUDE)
+                }
+            }
+    }
+
     override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String?) {
         if (key == null) return
         when (key) {
@@ -232,6 +254,7 @@ class ColumbusService : Service(), SharedPreferences.OnSharedPreferenceChangeLis
                 updateAction()
                 updateScreenCallback()
             }
+            getString(R.string.pref_key_haptic_intensity) -> updateHapticIntensity()
             getString(R.string.pref_key_allow_screen_off) -> updateScreenCallback()
         }
     }
@@ -321,13 +344,6 @@ class ColumbusService : Service(), SharedPreferences.OnSharedPreferenceChangeLis
     companion object {
         // Vibration effects from HapticFeedbackConstants
         // Duplicated because we can't use performHapticFeedback in a background service
-        private val vibDoubleTap: VibrationEffect =
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-                VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK)
-            } else {
-                VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE)
-            }
-
         private val sonicAudioAttr: AudioAttributes =
             AudioAttributes.Builder()
                 .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)

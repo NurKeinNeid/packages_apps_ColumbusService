@@ -18,6 +18,7 @@
     <bool name="default_enabled" translatable="false">false</bool>
     <integer name="default_sensitivity" translatable="false">3</integer>
     <string name="default_action" translatable="false">screenshot</string>
+    <string name="default_haptic_intensity" translatable="false">2</string>
     <bool name="default_allow_screen_off" translatable="false">true</bool>
 
     <!-- Set default TensorFlow Lite model for back tap detection.

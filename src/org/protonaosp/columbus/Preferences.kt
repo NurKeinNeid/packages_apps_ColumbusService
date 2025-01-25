@@ -76,3 +76,9 @@ fun SharedPreferences.getLaunchActionAppShortcut(context: Context): String {
     return getString(context.getString(R.string.pref_key_launch_app_shortcut), app_default)
         ?: app_default
 }
+
+fun SharedPreferences.getHapticIntensity(context: Context): String {
+    val haptic_default = context.getString(R.string.default_haptic_intensity)
+    return getString(context.getString(R.string.pref_key_haptic_intensity), haptic_default)
+        ?: haptic_default
+}
