@@ -111,8 +111,31 @@ class ColumbusService : Service(), SharedPreferences.OnSharedPreferenceChangeLis
     }
 
     override fun onDestroy() {
+        // Cleanup preferences listener
         prefs.unregisterOnSharedPreferenceChangeListener(this)
-        unregisterReceiver(screenCallback)
+
+        // Only unregister if we previously registered
+        if (screenRegistered) {
+            unregisterReceiver(screenCallback)
+            screenRegistered = false
+        }
+
+        // Cleanup gates
+        deactivateGates()
+        gates = emptySet()
+
+        // Stop sensor and controller
+        controller.stopListening()
+        sensor.stopListening()
+
+        // Release wakelock if held
+        if (wakelock.isHeld) {
+            wakelock.release()
+        }
+
+        // Clear references
+        action = DummyAction(this)
+        super.onDestroy()
     }
 
     private fun createAction(key: String): Action {
