@@ -117,5 +117,10 @@ class SettingsFragment :
                     setChecked(prefs.getAllowScreenOff(mContext))
                 }
             }
+
+        // Haptic Intensity
+        findPreference<ListPreference>(getString(R.string.pref_key_haptic_intensity))?.apply {
+            summary = entry
+        }
     }
 }
