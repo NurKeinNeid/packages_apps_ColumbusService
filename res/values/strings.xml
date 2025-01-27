@@ -126,4 +126,19 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+
+    <!-- Custom Gesture Patterns -->
+    <string name="custom_patterns_title">Custom gesture patterns</string>
+    <string name="custom_patterns_summary">Create and manage custom tap patterns</string>
+    <string name="custom_patterns_add">Add new pattern</string>
+    <string name="custom_patterns_name">Pattern name</string>
+    <string name="custom_patterns_sequence">Tap sequence</string>
+    <string name="custom_patterns_action">Action</string>
+    <string name="custom_patterns_empty">No custom patterns</string>
+    <string name="custom_patterns_recording">Recording pattern...</string>
+    <string name="custom_patterns_tap_to_record">Tap to record pattern</string>
+    <string name="custom_patterns_save">Save pattern</string>
+    <string name="custom_patterns_cancel">Cancel</string>
+    <string name="custom_patterns_delete">Delete pattern</string>
+    <string name="custom_patterns_delete_confirm">Delete this pattern?</string>
 </resources>

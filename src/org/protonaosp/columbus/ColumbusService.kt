@@ -39,6 +39,7 @@ import org.protonaosp.columbus.sensors.CHRESensor
 import org.protonaosp.columbus.sensors.ColumbusController
 import org.protonaosp.columbus.sensors.ColumbusSensor
 import org.protonaosp.columbus.sensors.useApSensor
+import org.protonaosp.columbus.patterns.GesturePatternManager
 
 class ColumbusService : Service(), SharedPreferences.OnSharedPreferenceChangeListener {
     // Services
@@ -53,6 +54,7 @@ class ColumbusService : Service(), SharedPreferences.OnSharedPreferenceChangeLis
     private var gates = setOf<Gate>()
     var isSettingsActivityOnTop: Boolean = false
     private val binder = Binder()
+    private lateinit var gesturePatternManager: GesturePatternManager
 
     // State
     private var screenRegistered = false
@@ -82,6 +84,7 @@ class ColumbusService : Service(), SharedPreferences.OnSharedPreferenceChangeLis
         wakelock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG)
         handler = Handler(Looper.getMainLooper())
         prefs = getDePrefs()
+        gesturePatternManager = GesturePatternManager(this, prefs)
 
         Log.d(TAG, "Initializing Quick Tap gesture")
 
@@ -282,10 +285,22 @@ class ColumbusService : Service(), SharedPreferences.OnSharedPreferenceChangeLis
             return
         }
 
+        // Check for custom pattern match
+        val customActionKey = gesturePatternManager.onTapEvent(msg, System.currentTimeMillis())
+        if (customActionKey != null) {
+            // Execute custom pattern action
+            when (customActionKey) {
+                "screenshot" -> takeScreenshot()
+                "assistant" -> launchAssistant()
+                "camera" -> launchCamera()
+                // Add more actions as needed
+            }
+            return
+        }
+
+        // Default action if no custom pattern matched
         if (!action.canRun()) return
-
         vibrator.vibrate(vibDoubleTap, sonicAudioAttr)
-
         action.run()
     }
 
