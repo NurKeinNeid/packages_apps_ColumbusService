@@ -45,7 +45,10 @@ class ScreenTouch(context: Context, val handler: Handler) : Gate(context, handle
                 if (isABlockingTouch(motionEvent)) {
                     handler.removeCallbacks(clearBlocking)
                     setBlocking(true)
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP && isBlocking()) {
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    if (!isBlocking()) {
+                        setBlocking(true)
+                    }
                     handler.postDelayed(clearBlocking, GATE_DURATION)
                 }
             }
